@@ -1,0 +1,5 @@
+{
+  "php.validate.executablePath": "/usr/bin/php",
+  "fiveServer.php.executable": "/usr/bin/php",
+  "fiveServer.php.ini": "/opt/lampp/etc/php.ini"
+}
