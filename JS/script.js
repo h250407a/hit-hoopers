@@ -193,6 +193,9 @@ window.addEventListener("load", function () {
 
   // 4. Set up interactive committee table hover effects
   setupCommitteeTableHover();
+
+  // 5. Set up celebratory basketball interaction on confirmation screen
+  setupCongratsBasketball();
 });
 
 // ----------------------------------------------------------------------------
@@ -395,3 +398,22 @@ window.addEventListener("scroll", function () {
     header.classList.toggle("scrolled", window.scrollY > 30);
   }
 });
+
+// ----------------------------------------------------------------------------
+// Part 9: Celebratory Basketball Spin on Click (process-form.php)
+// ----------------------------------------------------------------------------
+
+function setupCongratsBasketball() {
+  const wrapper = document.getElementById("congrats-ball-interactive");
+  const ball = document.getElementById("congrats-basketball");
+  if (!wrapper || !ball) return;
+
+  wrapper.addEventListener("click", function () {
+    if (ball.classList.contains("spin-active")) return;
+    ball.classList.add("spin-active");
+    setTimeout(function () {
+      ball.classList.remove("spin-active");
+    }, 850);
+  });
+}
+

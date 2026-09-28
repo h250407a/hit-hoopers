@@ -83,10 +83,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="response-page">
   <main class="response-card">
     <?php if ($success): ?>
-      <p class="eyebrow" style="color: #4ade80;">APPLICATION RECEIVED · REF #<?php echo str_pad((string)$insertedId, 4, '0', STR_PAD_LEFT); ?></p>
-      <h1>Welcome, <span><?php echo htmlspecialchars($fullName); ?></span>!</h1>
+      <!-- Celebratory Basketball Animation -->
+      <div class="congrats-ball-wrapper" id="congrats-ball-interactive" title="Click the ball for a victory spin!">
+        <span class="congrats-sparkle congrats-sparkle-1">✦</span>
+        <span class="congrats-sparkle congrats-sparkle-2">✦</span>
+        <span class="congrats-sparkle congrats-sparkle-3">★</span>
+        <span class="congrats-sparkle congrats-sparkle-4">★</span>
+        <div class="congrats-basketball" id="congrats-basketball" aria-label="Celebratory animated basketball">
+          <div class="congrats-ball-shine"></div>
+          <div class="congrats-ball-line congrats-line-one"></div>
+          <div class="congrats-ball-line congrats-line-two"></div>
+          <div class="congrats-ball-line congrats-line-three"></div>
+        </div>
+        <div class="congrats-ball-shadow"></div>
+      </div>
+
+      <p class="eyebrow" style="color: #4ade80;">APPLICATION ACCEPTED · REF #<?php echo str_pad((string)$insertedId, 4, '0', STR_PAD_LEFT); ?></p>
+      <h1>Congratulations!</h1>
+      <p style="font-size: 1.25rem; color: #fff; font-weight: 600; margin-top: -10px; margin-bottom: 18px;">
+        You have successfully joined our community!
+      </p>
       <p>
-        Your application to join <strong>HIT Hoopers</strong> as a <strong><?php echo htmlspecialchars($membershipType); ?></strong>
+        Welcome to the squad, <strong><?php echo htmlspecialchars($fullName); ?></strong>! Your membership application as a <strong><?php echo htmlspecialchars($membershipType); ?></strong>
         (Preferred Role: <em><?php echo htmlspecialchars($position); ?></em>) has been recorded in our official database.
       </p>
 
