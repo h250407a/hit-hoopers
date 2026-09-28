@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIT Hoopers | Join Us</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="JS/script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navigation">
+      <a class="logo" href="index.html">HIT <span>HOOPERS</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a class="active" href="contact.html">Join Us</a></li>
+        <li><a href="members.php">Members</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-banner reveal">
+      <p class="eyebrow">BECOME A MEMBER</p>
+      <h1>Join the <span>Team</span></h1>
+      <p>Submit your application to become an official HIT Hoopers member or reach out to our team.</p>
+    </section>
+
+    <section class="contact-section content-section reveal">
+      <div class="contact-copy">
+        <p class="eyebrow">ALL SKILL LEVELS WELCOME</p>
+        <h2>Your court is waiting</h2>
+        <p>
+          Whether you want to represent HIT in inter-university varsity leagues or just stay fit
+          and make friends on the court, HIT Hoopers welcomes you.
+        </p>
+
+        <!-- Ordered List Demonstrating Multi-Step Registration -->
+        <h3 style="color: #f47a20; margin-top: 35px; margin-bottom: 12px; font-size: 1.15rem;">How Registration Works</h3>
+        <ol class="steps-list">
+          <li>
+            <strong>Complete the online form</strong><br>
+            Provide your basic student details, playing background, and preferred role.
+          </li>
+          <li>
+            <strong>Attend orientation & open run</strong><br>
+            Join us on Tuesday or Thursday at 5:00 PM at the Main Sports Hall for a light shootaround.
+          </li>
+          <li>
+            <strong>Collect your official club jersey</strong><br>
+            Get added to our WhatsApp team group, squad roster, and match fixtures.
+          </li>
+        </ol>
+      </div>
+
+      <!-- Join / Registration Form -->
+      <form id="join-form" class="join-form" action="process-form.php" method="post" novalidate>
+        <label for="full-name">Full Name *</label>
+        <input id="full-name" name="full_name" type="text" placeholder="e.g. Tadiwa Moyo" required>
+
+        <label for="email">HIT / Personal Email Address *</label>
+        <input id="email" name="email" type="email" placeholder="e.g. tmoyo@hit.ac.zw" required>
+
+        <label for="student-id">Student Registration ID *</label>
+        <input id="student-id" name="student_id" type="text" placeholder="e.g. H250123A" required>
+
+        <label for="position">Preferred Playing Position / Role</label>
+        <select id="position" name="position">
+          <option value="General Member">General Club Member (All Welcome)</option>
+          <option value="Point Guard (PG)">Point Guard (Playmaker / Ball-handler)</option>
+          <option value="Shooting Guard (SG)">Shooting Guard (Perimeter Shooter)</option>
+          <option value="Small Forward (SF)">Small Forward (Versatile Wing)</option>
+          <option value="Power Forward (PF)">Power Forward (Rebounder / Post)</option>
+          <option value="Center (C)">Center (Interior Defense & Rim Protection)</option>
+          <option value="Team Statistician / Media">Team Statistician / Social Media Crew</option>
+        </select>
+
+        <label style="margin-top: 18px;">Membership Type</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="membership_type" value="Competitive Player" checked>
+            <span>Competitive Player</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="membership_type" value="Social / Fitness">
+            <span>Social / Fitness</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="membership_type" value="Volunteer / Official">
+            <span>Team Volunteer</span>
+          </label>
+        </div>
+
+        <label for="message">Why would you like to join?</label>
+        <textarea id="message" name="message" rows="3" placeholder="Tell us about your basketball experience or fitness goals..."></textarea>
+
+        <p id="form-message" class="form-message" aria-live="polite"></p>
+
+        <button class="button" type="submit">Submit Membership Application →</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 HIT Hoopers Basketball Club · Harare Institute of Technology</p>
+  </footer>
+</body>
+</html>

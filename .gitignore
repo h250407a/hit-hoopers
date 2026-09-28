@@ -1,0 +1,8 @@
+# Ignore large installers
+*.run
+*.exe
+*.iso
+
+# Ignore runtime database files
+data/*.sqlite
+data/*.db

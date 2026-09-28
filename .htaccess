@@ -1,0 +1,18 @@
+# ==============================================================================
+# Apache Configuration for HIT Hoopers Website
+# ==============================================================================
+
+# 1. Default Directory Index order
+DirectoryIndex index.html index.php
+
+# 2. Prevent directory listing
+Options -Indexes
+
+# 3. Security: Protect database files and dot files
+<FilesMatch "(\.sqlite|\.sql|\.db)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 4. Enable UTF-8 encoding
+AddDefaultCharset UTF-8

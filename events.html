@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIT Hoopers | Events & Calendar</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="JS/script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navigation">
+      <a class="logo" href="index.html">HIT <span>HOOPERS</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a class="active" href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Join Us</a></li>
+        <li><a href="members.php">Members</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-banner reveal">
+      <p class="eyebrow">ON THE COURT</p>
+      <h1>Upcoming <span>Events</span></h1>
+      <p>Come train, play and connect with the HIT Hoopers basketball community.</p>
+    </section>
+
+    <section class="events-section content-section reveal">
+      <div class="events-header-bar">
+        <div>
+          <p class="section-intro">Season Schedule</p>
+          <p style="color: #aaa39b; font-size: 0.95rem;">Filter activities by category or view all upcoming sessions.</p>
+        </div>
+        <div class="filter-controls" id="event-filters">
+          <button class="filter-btn active" data-category="all" onclick="filterEvents('all')">All Events</button>
+          <button class="filter-btn" data-category="training" onclick="filterEvents('training')">Training</button>
+          <button class="filter-btn" data-category="match" onclick="filterEvents('match')">Matches</button>
+          <button class="filter-btn" data-category="tournament" onclick="filterEvents('tournament')">Tournaments</button>
+        </div>
+      </div>
+
+      <!-- Events dynamically injected via JavaScript Array of Objects -->
+      <div id="event-list" class="event-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 HIT Hoopers Basketball Club · Harare Institute of Technology</p>
+  </footer>
+</body>
+</html>
