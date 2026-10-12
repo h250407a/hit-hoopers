@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: hit-hoopers
+    runtime: docker
+    plan: free
+    region: frankfurt
