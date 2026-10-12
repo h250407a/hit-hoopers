@@ -444,26 +444,19 @@ function getPreferredTheme() {
 }
 
 /**
- * Applies the selected theme to <html> and updates the toggle button icon/text
+ * Applies the selected theme to <html> and updates accessibility attributes
  */
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
 
   const toggleButtons = document.querySelectorAll(".theme-toggle-btn");
   toggleButtons.forEach(function (btn) {
-    const icon = btn.querySelector(".theme-icon");
-    const label = btn.querySelector(".theme-label");
-
     if (theme === "light") {
-      if (icon) icon.textContent = "☀️";
-      if (label) label.textContent = "Light";
       btn.setAttribute("aria-label", "Switch to Dark theme");
-      btn.title = "Current: Light theme. Click to switch to Dark mode";
+      btn.title = "Current: Light theme (Click for Dark mode)";
     } else {
-      if (icon) icon.textContent = "🌙";
-      if (label) label.textContent = "Dark";
       btn.setAttribute("aria-label", "Switch to Light theme");
-      btn.title = "Current: Dark theme. Click to switch to Light mode";
+      btn.title = "Current: Dark theme (Click for Light mode)";
     }
   });
 }
@@ -478,6 +471,9 @@ function toggleTheme() {
   applyTheme(nextTheme);
 }
 
+// Expose globally so onclick handler in HTML works instantly
+window.toggleTheme = toggleTheme;
+
 /**
  * Initializes theme management: ensures toggle button exists in nav and listens for system scheme changes
  */
@@ -490,16 +486,32 @@ function setupThemeManager() {
   if (nav && !document.querySelector(".theme-toggle-btn")) {
     const btn = document.createElement("button");
     btn.className = "theme-toggle-btn";
+    btn.id = "theme-toggle";
     btn.type = "button";
+    btn.setAttribute("onclick", "toggleTheme()");
     btn.setAttribute("aria-label", "Toggle theme");
-    btn.innerHTML = '<span class="theme-icon">🌙</span><span class="theme-label">Dark</span>';
+    btn.innerHTML = `
+      <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    `;
     nav.appendChild(btn);
   }
 
   // Attach click listener to all toggle buttons on the page
   document.querySelectorAll(".theme-toggle-btn").forEach(function (btn) {
-    btn.removeEventListener("click", toggleTheme);
-    btn.addEventListener("click", toggleTheme);
+    btn.onclick = toggleTheme;
   });
 
   // Listen for browser / OS theme preference changes in real-time
