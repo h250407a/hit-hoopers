@@ -6,3 +6,6 @@
 # Ignore runtime database files
 data/*.sqlite
 data/*.db
+
+# Ignore deployment zip
+*.zip
