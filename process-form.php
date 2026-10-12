@@ -78,10 +78,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HIT Hoopers | Application Status</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){var s=localStorage.getItem('hit_hoopers_theme');var d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',s||(d?'dark':'light'));})();
+  </script>
   <script src="JS/script.js" defer></script>
 </head>
 <body class="response-page">
-  <main class="response-card">
+  <main class="response-card" style="position: relative;">
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+      <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle theme" title="Switch between Dark and Light mode">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-label">Dark</span>
+      </button>
+    </div>
+
     <?php if ($success): ?>
       <!-- Celebratory Basketball Animation -->
       <div class="congrats-ball-wrapper" id="congrats-ball-interactive" title="Click the ball for a victory spin!">
@@ -100,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <p class="eyebrow" style="color: #4ade80;">APPLICATION ACCEPTED · REF #<?php echo str_pad((string)$insertedId, 4, '0', STR_PAD_LEFT); ?></p>
       <h1>Congratulations!</h1>
-      <p style="font-size: 1.25rem; color: #fff; font-weight: 600; margin-top: -10px; margin-bottom: 18px;">
+      <p style="font-size: 1.25rem; color: var(--text-heading); font-weight: 600; margin-top: -10px; margin-bottom: 18px;">
         You have successfully joined our community!
       </p>
       <p>
@@ -108,23 +118,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         (Preferred Role: <em><?php echo htmlspecialchars($position); ?></em>) has been recorded in our official database.
       </p>
 
-      <div style="background: #171717; border: 1px solid #383838; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: left;">
-        <h3 style="color: #f47a20; margin-bottom: 12px; font-size: 1.1rem;">Registration Summary</h3>
-        <p style="margin: 6px 0; color: #ded8d0;"><strong>Student ID:</strong> <?php echo htmlspecialchars($studentId); ?></p>
-        <p style="margin: 6px 0; color: #ded8d0;"><strong>Email Address:</strong> <?php echo htmlspecialchars($email); ?></p>
-        <p style="margin: 6px 0; color: #ded8d0;"><strong>Date Registered:</strong> <?php echo htmlspecialchars($timestamp); ?></p>
+      <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin: 25px 0; text-align: left;">
+        <h3 style="color: var(--accent); margin-bottom: 12px; font-size: 1.1rem;">Registration Summary</h3>
+        <p style="margin: 6px 0; color: var(--text-secondary);"><strong>Student ID:</strong> <?php echo htmlspecialchars($studentId); ?></p>
+        <p style="margin: 6px 0; color: var(--text-secondary);"><strong>Email Address:</strong> <?php echo htmlspecialchars($email); ?></p>
+        <p style="margin: 6px 0; color: var(--text-secondary);"><strong>Date Registered:</strong> <?php echo htmlspecialchars($timestamp); ?></p>
         <?php if (!empty($message)): ?>
-          <p style="margin: 6px 0; color: #aaa39b;"><strong>Your Note:</strong> “<?php echo htmlspecialchars($message); ?>”</p>
+          <p style="margin: 6px 0; color: var(--text-muted);"><strong>Your Note:</strong> “<?php echo htmlspecialchars($message); ?>”</p>
         <?php endif; ?>
       </div>
 
-      <p style="color: #aaa39b; font-size: 0.95rem; margin-bottom: 25px;">
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
         A confirmation has been logged. Training takes place every Tuesday and Thursday at 5:00 PM at the Main Sports Hall.
       </p>
 
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
         <a class="button" href="members.php">View Registered Members →</a>
-        <a class="button" href="index.html" style="background: #343434; color: #fff;">Back to Home</a>
+        <a class="button" href="index.html" style="background: var(--theme-btn-bg); border: 1px solid var(--border-color); color: var(--text-heading);">Back to Home</a>
       </div>
 
     <?php else: ?>

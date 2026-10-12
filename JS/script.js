@@ -196,6 +196,9 @@ window.addEventListener("load", function () {
 
   // 5. Set up celebratory basketball interaction on confirmation screen
   setupCongratsBasketball();
+
+  // 6. Ensure theme toggle buttons and listeners are active
+  setupThemeManager();
 });
 
 // ----------------------------------------------------------------------------
@@ -416,4 +419,108 @@ function setupCongratsBasketball() {
     }, 850);
   });
 }
+
+// ----------------------------------------------------------------------------
+// Part 10: Automatic Browser Theme Detection & Manual Theme Switcher
+// ----------------------------------------------------------------------------
+
+const THEME_STORAGE_KEY = "hit_hoopers_theme";
+
+/**
+ * Returns the preferred theme ('light' or 'dark') based on:
+ * 1. Explicit user selection saved in localStorage
+ * 2. Browser / OS color scheme preference (prefers-color-scheme)
+ */
+function getPreferredTheme() {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+  // Check browser/system preference
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    return "light";
+  }
+  return "dark"; // Default fallback
+}
+
+/**
+ * Applies the selected theme to <html> and updates the toggle button icon/text
+ */
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  const toggleButtons = document.querySelectorAll(".theme-toggle-btn");
+  toggleButtons.forEach(function (btn) {
+    const icon = btn.querySelector(".theme-icon");
+    const label = btn.querySelector(".theme-label");
+
+    if (theme === "light") {
+      if (icon) icon.textContent = "☀️";
+      if (label) label.textContent = "Light";
+      btn.setAttribute("aria-label", "Switch to Dark theme");
+      btn.title = "Current: Light theme. Click to switch to Dark mode";
+    } else {
+      if (icon) icon.textContent = "🌙";
+      if (label) label.textContent = "Dark";
+      btn.setAttribute("aria-label", "Switch to Light theme");
+      btn.title = "Current: Dark theme. Click to switch to Light mode";
+    }
+  });
+}
+
+/**
+ * Toggles between light and dark themes, persists to localStorage, and updates UI
+ */
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme") || getPreferredTheme();
+  const nextTheme = currentTheme === "light" ? "dark" : "light";
+  localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  applyTheme(nextTheme);
+}
+
+/**
+ * Initializes theme management: ensures toggle button exists in nav and listens for system scheme changes
+ */
+function setupThemeManager() {
+  // Apply preferred theme immediately
+  applyTheme(getPreferredTheme());
+
+  // Automatically inject button into .navigation if not already present in HTML
+  const nav = document.querySelector(".navigation");
+  if (nav && !document.querySelector(".theme-toggle-btn")) {
+    const btn = document.createElement("button");
+    btn.className = "theme-toggle-btn";
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Toggle theme");
+    btn.innerHTML = '<span class="theme-icon">🌙</span><span class="theme-label">Dark</span>';
+    nav.appendChild(btn);
+  }
+
+  // Attach click listener to all toggle buttons on the page
+  document.querySelectorAll(".theme-toggle-btn").forEach(function (btn) {
+    btn.removeEventListener("click", toggleTheme);
+    btn.addEventListener("click", toggleTheme);
+  });
+
+  // Listen for browser / OS theme preference changes in real-time
+  if (window.matchMedia) {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemChange = function (e) {
+      // Only switch automatically if the user has not set a custom preference
+      if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    };
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleSystemChange);
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(handleSystemChange);
+    }
+  }
+}
+
+// Run setup immediately so theme applies without waiting for full page asset load
+setupThemeManager();
+
 

@@ -5,13 +5,15 @@
 # 1. Default Directory Index order
 DirectoryIndex index.html index.php
 
-# 2. Prevent directory listing
-Options -Indexes
-
-# 3. Security: Protect database files and dot files
+# 2. Security: Protect database files from direct web download
 <FilesMatch "(\.sqlite|\.sql|\.db)$">
-    Order allow,deny
-    Deny from all
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
 </FilesMatch>
 
 # 4. Enable UTF-8 encoding
